@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.2.xsd">
+	
+	<int:channel id="inputChannel"/>
+
+	<int:channel id="outputChannel">
+		<int:queue capacity="10"/>
+	</int:channel>
+
+	<bean id="helloService" class="in.mhatre.sagar.spring.integration.HelloService"/>
+
+	<int:service-activator input-channel="inputChannel"
+	                   output-channel="outputChannel"
+	                   ref="helloService"
+	                   method="sayHello"/>
+	
+
+</beans>

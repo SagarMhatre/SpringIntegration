@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"	
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.2.xsd">
+
+	<int:logging-channel-adapter id="logger" logger-name="task-logger" />
+
+	<!-- An "inbound-channel-adapter" element can invoke any method on a Spring-managed 
+		Object and send a non-null return value to a MessageChannel after converting 
+		it to a Message. When the adapter’s subscription is activated, a poller will 
+		attempt to receive messages from the source. The poller will be scheduled 
+		with the TaskScheduler according to the provided configuration. To configure 
+		the polling interval or cron expression for an individual channel-adapter, 
+		provide a poller element with one of the scheduling attributes, such as fixed-rate 
+		or cron. -->
+	<int:inbound-channel-adapter expression="T(java.lang.System).currentTimeMillis()"
+		channel="logger">
+		<int:poller fixed-delay="20000" max-messages-per-poll="2" />
+	</int:inbound-channel-adapter>
+
+</beans>
