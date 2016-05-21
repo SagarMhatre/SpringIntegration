@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-jms="http://www.springframework.org/schema/integration/jms"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/integration/jms http://www.springframework.org/schema/integration/jms/spring-integration-jms-4.2.xsd
+		http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration-4.2.xsd">
+
+	<bean id="connectionFactory"
+		class="org.springframework.jms.connection.CachingConnectionFactory">
+		<property name="targetConnectionFactory">
+			<bean class="org.apache.activemq.ActiveMQConnectionFactory">
+				<!-- <property name="brokerURL" value="tcp://localhost:61616" />  -->
+				<property name="brokerURL" value="failover:(tcp://localhost:61616,tcp://remotehost:61616)?initialReconnectDelay=100" /> 
+			</bean>
+		</property>
+		<property name="sessionCacheSize" value="10" />
+	</bean>
+
+	<bean id="requestQueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="queue.demo" />
+	</bean>
+	 
+	<int:channel id="stdinToJmsoutChannel"/>
+
+	<int-jms:outbound-channel-adapter id="jmsout" channel="stdinToJmsoutChannel" destination="requestQueue"/>	
+	
+</beans>

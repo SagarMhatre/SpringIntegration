@@ -36,6 +36,25 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Added for JMS Support -->
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-jms</artifactId>
+			<version>4.2.6.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-broker</artifactId>
+			<version>5.13.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-kahadb-store</artifactId>
+			<version>5.13.3</version>
+		</dependency>
+		<!-- /Added for JMS Support -->
+
 	</dependencies>
 
 	<build>

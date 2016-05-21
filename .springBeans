@@ -9,6 +9,7 @@
 	<configs>
 		<config>src/main/resources/hello-world.xml</config>
 		<config>src/main/resources/poller.xml</config>
+		<config>src/main/resources/jms.xml</config>
 	</configs>
 	<autoconfigs>
 		<config>java:in.mhatre.sagar.spring.integration.SpringIntegrationApplication</config>
